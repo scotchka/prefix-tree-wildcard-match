@@ -110,7 +110,7 @@ def find_pattern(path):
             queue.append((tree['*'], prefix + ['*'], suffix[1:]))
 
     if len(patterns) > 0:
-        return sorted(patterns)[0] # sort ascending, based on custom comparison, and return first element
+        return min(patterns) # minimum element based on custom comparison
     else:
         return 'NO MATCH'
 
