@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 
 # read input
 data = [line.strip() for line in sys.stdin.readlines()]
@@ -28,9 +29,10 @@ for line in pattern_strings:
 
 
 class Pattern(object):
-    '''
+    """
     pattern class with custom ordering
-    '''
+    """
+
     def __init__(self, string):
         self.tokens = [item.strip() for item in string.split(',')]
         self.length = len(self.tokens)
@@ -80,17 +82,18 @@ class Pattern(object):
 
 
 def find_pattern(path):
-    '''
+    """
     Breadth-first search for most specific pattern that matches path
     :param path: path string
     :return: most specific pattern, or NO MATCH
-    '''
+    """
     suffix = [item.strip() for item in path.split('/') if item.strip()]
-    queue = [(pattern_tree, [], suffix)] # search queue maintains the subtree, prefix, and suffix
-    patterns = [] # list of matching patterns
+    queue = deque()
+    queue.append((pattern_tree, [], suffix))  # search queue maintains the subtree, prefix, and suffix
+    patterns = []  # list of matching patterns
     while len(queue) > 0:
-        tree, prefix, suffix = queue.pop(0)
-        if len(suffix) == 0: # exhausted path, stop search
+        tree, prefix, suffix = queue.popleft()
+        if len(suffix) == 0:  # exhausted path, stop search
             break
 
         # check for matching patterns
@@ -110,7 +113,7 @@ def find_pattern(path):
             queue.append((tree['*'], prefix + ['*'], suffix[1:]))
 
     if len(patterns) > 0:
-        return min(patterns) # minimum element based on custom comparison
+        return min(patterns)  # minimum element based on custom comparison
     else:
         return 'NO MATCH'
 
