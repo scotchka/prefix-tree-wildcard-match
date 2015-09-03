@@ -5,6 +5,6 @@ pattern for each path. In case of multiple matching patterns, prefer fewest wild
 
 Example:
 
-a/b/c matches a,*,* and *,b,* and *,*,c
+a/b/c matches a,\*,\* and \*,b,\* and \*,\*,c
 
-a,*,* is most specific
+a,\*,\* is most specific
